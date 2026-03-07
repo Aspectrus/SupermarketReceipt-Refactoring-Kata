@@ -1,4 +1,5 @@
 using SupermarketReceipt.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt.Domain.Entities
@@ -7,6 +8,12 @@ namespace SupermarketReceipt.Domain.Entities
     {
         public Product(string name, ProductUnit unit)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Product name cannot be null or whitespace.", nameof(name));
+
+            if (!Enum.IsDefined(typeof(ProductUnit), unit))
+                throw new ArgumentOutOfRangeException(nameof(unit), "Invalid product unit.");
+
             Name = name;
             Unit = unit;
         }
