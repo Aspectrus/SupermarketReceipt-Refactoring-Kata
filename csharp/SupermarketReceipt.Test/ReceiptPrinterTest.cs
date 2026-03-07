@@ -1,4 +1,5 @@
 using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Entities.Offers;
 using SupermarketReceipt.Domain.ValueObjects;
 using System.Threading.Tasks;
 using VerifyXunit;
@@ -44,8 +45,14 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task discounts()
         {
-            _receipt.AddDiscount(new Discount(_apples, "3 for 2", 0.99m));
-            return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
+            _receipt.AddDiscount(
+                new Discount(
+                    _apples,
+                    0.99M,
+                    SpecialOfferType.ThreeForTwo,
+                    [3, 2]
+                )
+            ); return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
@@ -54,8 +61,14 @@ namespace SupermarketReceipt.Test
             _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 1M), 0.99M);
             _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 2M), 0.99M);
             _receipt.AddProduct(_apples, Quantity.ForProduct(_apples, 0.75M), 1.99M);
-            _receipt.AddDiscount(new Discount(_toothbrush, "3 for 2", 0.99m));
-            return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
+            _receipt.AddDiscount(
+                new Discount(
+                    _toothbrush,
+                    0.99M,
+                    SpecialOfferType.ThreeForTwo,
+                     [3, 2]
+                )
+            ); return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
     }
 }

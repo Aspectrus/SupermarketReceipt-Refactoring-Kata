@@ -42,9 +42,10 @@ namespace SupermarketReceipt.Domain.Entities.Offers
 
             return discount > 0
                 ? new Discount(
-                    product,
-                    string.Format("{0:0} for {1:N2}", GroupSize, Amount),
-                    -discount)
+                product,
+                -discount,
+               SpecialOfferType,
+                new decimal[] { GroupSize, Amount })
                 : null;
         }
 

@@ -1,15 +1,19 @@
+using SupermarketReceipt.Domain.Entities.Offers;
+
 namespace SupermarketReceipt.Domain.Entities
 {
     public class Discount
     {
-        public Discount(Product product, string description, decimal discountAmount)
+        public Discount(Product product, decimal discountAmount, SpecialOfferType offerType, decimal[] arguments)
         {
             Product = product;
-            Description = description;
             DiscountAmount = discountAmount;
+            OfferType = offerType;
+            Arguments = arguments;
         }
 
-        public string Description { get; }
+        public SpecialOfferType OfferType { get; }
+        public decimal[] Arguments { get; }
         public decimal DiscountAmount { get; }
         public Product Product { get; }
     }

@@ -1,5 +1,6 @@
 using SupermarketReceipt.Domain.Entities;
 using SupermarketReceipt.Domain.ValueObjects;
+using SupermarketReceipt.Test;
 using System.Globalization;
 using System.Text;
 
@@ -10,11 +11,12 @@ namespace SupermarketReceipt
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
         private readonly int _columns;
-
+        private readonly ReceiptFormatter _receiptFormatter;
 
         public ReceiptPrinter(int columns)
         {
             _columns = columns;
+            _receiptFormatter = new ReceiptFormatter();
         }
 
         public ReceiptPrinter() : this(40)
@@ -28,7 +30,7 @@ namespace SupermarketReceipt
             {
                 string receiptItem = PrintReceiptItem(item);
                 result.Append(receiptItem);
-                
+
             }
 
             foreach (var discount in receipt.GetDiscounts())
@@ -53,7 +55,11 @@ namespace SupermarketReceipt
 
         private string PrintDiscount(Discount discount)
         {
-            string name = discount.Description + "(" + discount.Product.Name + ")";
+            string name = _receiptFormatter.GetDiscountDescription(
+        discount.OfferType,
+        discount.Arguments,
+        Culture)
+                + "(" + discount.Product?.Name + ")";
             string value = PrintPrice(discount.DiscountAmount);
 
             return FormatLineWithWhitespace(name, value);
@@ -71,14 +77,15 @@ namespace SupermarketReceipt
 
             return line;
         }
-        
+
 
         private string FormatLineWithWhitespace(string name, string value)
         {
             var line = new StringBuilder();
             line.Append(name);
             int whitespaceSize = this._columns - name.Length - value.Length;
-            for (int i = 0; i < whitespaceSize; i++) {
+            for (int i = 0; i < whitespaceSize; i++)
+            {
                 line.Append(" ");
             }
             line.Append(value);
@@ -94,9 +101,9 @@ namespace SupermarketReceipt
         private static string PrintQuantity(ReceiptItem item)
         {
             return ProductUnit.Each == item.Product.Unit
-                ? ((int) item.Quantity.Amount).ToString()
+                ? ((int)item.Quantity.Amount).ToString()
                 : item.Quantity.Amount.ToString("N3", Culture);
         }
-        
+
     }
 }
