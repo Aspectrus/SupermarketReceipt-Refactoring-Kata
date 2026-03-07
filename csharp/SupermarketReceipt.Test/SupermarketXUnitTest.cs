@@ -22,6 +22,7 @@ namespace SupermarketReceipt.Test
         private Product _rice;
         private Product _apples;
         private Product _cherryTomatoes;
+        private Product _candy;
 
         public SupermarketXUnitTest()
         {
@@ -44,6 +45,34 @@ namespace SupermarketReceipt.Test
             _catalog.AddProduct(_apples, 1.99m);
             _cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
             _catalog.AddProduct(_cherryTomatoes, 0.69m);
+
+            _candy = new Product("candy", ProductUnit.Kilo);
+            _catalog.AddProduct(_candy, 0.07M);
+        }
+
+
+        [Fact]
+        public Task precision_rounding_check()
+        {
+            _theCart.AddItemQuantity(_candy, Quantity.ForProduct(_candy, 0.5M));
+            Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
+            return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+        }
+
+        [Fact]
+        public Task multiple_eoffers_for_one_product()
+        {
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 5M));
+            var offer1 = _offerFactory.CreateFiveForAmountOffer(_apples, 5M);
+            var offer2 = _offerFactory.CreateTenPercentDiscountOffer(_apples);
+            var offer3 = _offerFactory.CreateTwoForAmountOffer(_apples, 3M);
+            _offerService.AddOffer(offer1);
+            _offerService.AddOffer(offer2);
+            _offerService.AddOffer(offer3);
+
+            Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
+
+            return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
         [Fact]

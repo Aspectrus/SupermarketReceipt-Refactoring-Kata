@@ -34,12 +34,12 @@ namespace SupermarketReceipt.Application
         {
             var productQuantities = cart.GetItems();
 
-            foreach (var pq in productQuantities)
+            foreach (var productQuantity in productQuantities)
             {
-                var p = pq.Product;
-                var quantity = pq.Quantity;
-                var unitPrice = _catalog.GetUnitPrice(p);
-                receipt.AddProduct(p, quantity, unitPrice);
+                var product = productQuantity.Product;
+                var quantity = productQuantity.Quantity;
+                var unitPrice = _catalog.GetUnitPrice(product);
+                receipt.AddProduct(product, quantity, unitPrice);
             }
         }
 
