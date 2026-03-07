@@ -6,7 +6,7 @@ namespace SupermarketReceipt.Domain.Entities
 {
     public class ShoppingCart
     {
-        private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
+        private readonly List<ShoppingCartItem> _items = new List<ShoppingCartItem>();
 
         public IReadOnlyDictionary<Product, Quantity> GetProductQuantities()
         {
@@ -22,9 +22,9 @@ namespace SupermarketReceipt.Domain.Entities
         }
 
 
-        public List<ProductQuantity> GetItems()
+        public List<ShoppingCartItem> GetItems()
         {
-            return new List<ProductQuantity>(_items);
+            return new List<ShoppingCartItem>(_items);
         }
 
         public void AddItem(Product product)
@@ -39,7 +39,7 @@ namespace SupermarketReceipt.Domain.Entities
             if (product.Unit != quantity.Unit)
                 throw new ArgumentException($"Product unit {product.Unit} doesn't match quantity unit {quantity.Unit}");
 
-            _items.Add(new ProductQuantity(product, quantity));
+            _items.Add(new ShoppingCartItem(product, quantity));
         }
 
     }
