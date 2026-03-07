@@ -1,6 +1,7 @@
 using SupermarketReceipt.Application;
 using SupermarketReceipt.Domain.Entities;
 using SupermarketReceipt.Domain.Interfaces;
+using SupermarketReceipt.Domain.ValueObjects;
 using SupermarketReceipt.Infrastructure;
 using System.Threading.Tasks;
 using VerifyXunit;
@@ -85,7 +86,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task loose_weight_product()
         {
-            _theCart.AddItemQuantity(_apples, 0.5m);
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 0.5M));
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -112,7 +113,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task FiveForY_discount()
         {
-            _theCart.AddItemQuantity(_apples, 5m);
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 5M));
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
@@ -121,7 +122,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task FiveForY_discount_withSix()
         {
-            _theCart.AddItemQuantity(_apples, 6m);
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 6M));
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
@@ -130,7 +131,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task FiveForY_discount_withSixteen()
         {
-            _theCart.AddItemQuantity(_apples, 16m);
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 16M));
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
@@ -139,7 +140,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task FiveForY_discount_withFour()
         {
-            _theCart.AddItemQuantity(_apples, 4m);
+            _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 4M));
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));

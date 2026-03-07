@@ -26,7 +26,7 @@ namespace SupermarketReceipt.Application
             foreach (var pq in productQuantities)
             {
                 var p = pq.Product;
-                var quantity = pq.Quantity;
+                var quantity = pq.Quantity.Amount;
                 var unitPrice = _catalog.GetUnitPrice(p);
                 var price = quantity * unitPrice;
                 receipt.AddProduct(p, quantity, unitPrice, price);

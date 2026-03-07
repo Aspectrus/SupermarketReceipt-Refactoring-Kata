@@ -1,3 +1,4 @@
+using SupermarketReceipt.Domain.ValueObjects;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt.Domain.Entities
@@ -28,11 +29,5 @@ namespace SupermarketReceipt.Domain.Entities
             hashCode = hashCode * -1521134295 + Unit.GetHashCode();
             return hashCode;
         }
-    }
-
-    public enum ProductUnit
-    {
-        Kilo,
-        Each
     }
 }

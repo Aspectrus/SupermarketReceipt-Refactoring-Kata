@@ -4,13 +4,13 @@ namespace SupermarketReceipt.Domain.ValueObjects
 {
     public class ProductQuantity
     {
-        public ProductQuantity(Product product, decimal weight)
+        public ProductQuantity(Product product, Quantity quantity)
         {
             Product = product;
-            Quantity = weight;
+            Quantity = quantity;
         }
 
         public Product Product { get; }
-        public decimal Quantity { get; }
+        public Quantity Quantity { get; }
     }
 }
