@@ -5,7 +5,6 @@ using Xunit;
 
 namespace SupermarketReceipt.Test
 {
-    [UsesVerify]
     public class ReceiptPrinterTest
     {
         readonly Product _toothbrush = new Product("toothbrush", ProductUnit.Each);

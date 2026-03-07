@@ -5,7 +5,6 @@ using Xunit;
 
 namespace SupermarketReceipt.Test
 {
-    [UsesVerify]
     public class SupermarketXUnitTest
     {
         private SupermarketCatalog _catalog;
