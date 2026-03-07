@@ -7,10 +7,9 @@ namespace SupermarketReceipt.Domain.Entities.Offers
 {
     public enum SpecialOfferType
     {
-        ThreeForTwo,
-        TenPercentDiscount,
-        TwoForAmount,
-        FiveForAmount
+        BuyXPayYOffer,
+        BuyXForYAmount,
+        XPercentOffer
     }
 
     public abstract class Offer

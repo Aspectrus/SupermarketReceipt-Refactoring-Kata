@@ -11,10 +11,9 @@ namespace SupermarketReceipt.Test
             object[] objectArgs = arguments.Cast<object>().ToArray();
             return offerType switch
             {
-                SpecialOfferType.TwoForAmount => string.Format(culture, "{0:0} for {1:N2}", objectArgs),
-                SpecialOfferType.FiveForAmount => string.Format(culture, "{0:0} for {1:N2}", objectArgs),
-                SpecialOfferType.TenPercentDiscount => string.Format(culture, "{0:0.##}% off", objectArgs),
-                SpecialOfferType.ThreeForTwo => string.Format(culture, "{0:0} for {1:0}", objectArgs),
+                SpecialOfferType.BuyXForYAmount => string.Format(culture, "{0:0} for {1:N2}", objectArgs),
+                SpecialOfferType.XPercentOffer => string.Format(culture, "{0:0.##}% off", objectArgs),
+                SpecialOfferType.BuyXPayYOffer => string.Format(culture, "{0:0} for {1:0}", objectArgs),
                 _ => "Unknown offer"
             };
         }

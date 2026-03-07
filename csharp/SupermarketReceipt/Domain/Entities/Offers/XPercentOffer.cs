@@ -7,8 +7,8 @@ namespace SupermarketReceipt.Domain.Entities.Offers
 {
     internal class XPercentOffer : Offer
     {
-        public XPercentOffer(decimal percentAmount, Product product, SpecialOfferType type)
-        : base(product, type)
+        public XPercentOffer(decimal percentAmount, Product product)
+        : base(product, SpecialOfferType.XPercentOffer)
         {
             if (percentAmount <= 0 || percentAmount > 100)
                 throw new ArgumentOutOfRangeException(nameof(percentAmount), "Percent amount must be between 0 and 100 (exclusive for 0).");

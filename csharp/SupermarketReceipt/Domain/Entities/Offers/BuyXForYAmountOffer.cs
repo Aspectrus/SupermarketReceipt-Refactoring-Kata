@@ -10,8 +10,9 @@ namespace SupermarketReceipt.Domain.Entities.Offers
         public decimal Amount { get; }
         public int GroupSize { get; }
 
-        public BuyXForYAmountOffer(int groupSize, decimal amount, Product product, SpecialOfferType type)
-        : base(product, type)
+
+        public BuyXForYAmountOffer(int groupSize, decimal amount, Product product)
+        : base(product, SpecialOfferType.BuyXForYAmount)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be positive.");

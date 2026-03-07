@@ -49,7 +49,7 @@ namespace SupermarketReceipt.Test
                 new Discount(
                     _apples,
                     0.99M,
-                    SpecialOfferType.ThreeForTwo,
+                    SpecialOfferType.BuyXPayYOffer,
                     [3, 2]
                 )
             ); return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
@@ -65,7 +65,7 @@ namespace SupermarketReceipt.Test
                 new Discount(
                     _toothbrush,
                     0.99M,
-                    SpecialOfferType.ThreeForTwo,
+                    SpecialOfferType.BuyXPayYOffer,
                      [3, 2]
                 )
             ); return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));

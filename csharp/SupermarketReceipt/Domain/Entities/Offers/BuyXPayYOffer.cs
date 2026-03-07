@@ -10,8 +10,8 @@ namespace SupermarketReceipt.Domain.Entities.Offers
         public int ItemsReceived { get; }
         public int ItemsPaid { get; }
 
-        public BuyXPayYOffer(int itemsReceived, int itemsPaid, Product product, SpecialOfferType type)
-        : base(product, type)
+        public BuyXPayYOffer(int itemsReceived, int itemsPaid, Product product)
+        : base(product, SpecialOfferType.BuyXPayYOffer)
         {
             if (itemsReceived <= 0)
                 throw new ArgumentOutOfRangeException(nameof(itemsReceived), "Items received must be positive.");
