@@ -15,29 +15,29 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task oneLineItem()
         {
-            _receipt.AddProduct(_toothbrush, 1m, 0.99m, 0.99m);
+            _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush), 0.99m);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
         public Task quantityTwo()
         {
-            _receipt.AddProduct(_toothbrush, 2m, 0.99m, 0.99m * 2m);
+            _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 2), 0.99m);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
         public Task looseWeight()
         {
-            _receipt.AddProduct(_apples, 2.3m, 1.99m, 1.99m * 2.3m);
+            _receipt.AddProduct(_apples, Quantity.ForProduct(_apples, 2.3M), 1.99m);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
         public Task total()
         {
-            _receipt.AddProduct(_toothbrush, 1m, 0.99m, 2m * 0.99m);
-            _receipt.AddProduct(_apples, 0.75m, 1.99m, 1.99m * 0.75m);
+            _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 1M), 0.99m);
+            _receipt.AddProduct(_apples, Quantity.ForProduct(_apples, 0.75M), 1.99m);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
@@ -51,9 +51,9 @@ namespace SupermarketReceipt.Test
         [Fact]
         public Task printWholeReceipt()
         {
-            _receipt.AddProduct(_toothbrush, 1m, 0.99m, 0.99m);
-            _receipt.AddProduct(_toothbrush, 2m, 0.99m, 2m * 0.99m);
-            _receipt.AddProduct(_apples, 0.75m, 1.99m, 1.99m * 0.75m);
+            _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 1M), 0.99M);
+            _receipt.AddProduct(_toothbrush, Quantity.ForProduct(_toothbrush, 2M), 0.99M);
+            _receipt.AddProduct(_apples, Quantity.ForProduct(_apples, 0.75M), 1.99M);
             _receipt.AddDiscount(new Discount(_toothbrush, "3 for 2", 0.99m));
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }

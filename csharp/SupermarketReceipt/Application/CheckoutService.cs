@@ -39,7 +39,7 @@ namespace SupermarketReceipt.Application
                 var p = pq.Product;
                 var quantity = pq.Quantity;
                 var unitPrice = _catalog.GetUnitPrice(p);
-                receipt.AddProduct(p, quantity.Amount, unitPrice, quantity.Amount * unitPrice);
+                receipt.AddProduct(p, quantity, unitPrice);
             }
         }
 

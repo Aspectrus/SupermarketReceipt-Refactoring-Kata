@@ -4,7 +4,7 @@ namespace SupermarketReceipt.Domain.ValueObjects
 {
     public class ReceiptItem
     {
-        public ReceiptItem(Product p, decimal quantity, decimal price, decimal totalPrice)
+        public ReceiptItem(Product p, Quantity quantity, decimal price, decimal totalPrice)
         {
             Product = p;
             Quantity = quantity;
@@ -15,6 +15,6 @@ namespace SupermarketReceipt.Domain.ValueObjects
         public Product Product { get; }
         public decimal Price { get; }
         public decimal TotalPrice { get; }
-        public decimal Quantity { get; }
+        public Quantity Quantity { get; }
     }
 }
