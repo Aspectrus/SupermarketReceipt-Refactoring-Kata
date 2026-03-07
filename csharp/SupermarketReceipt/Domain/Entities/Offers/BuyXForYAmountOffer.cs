@@ -25,7 +25,7 @@ namespace SupermarketReceipt.Domain.Entities.Offers
             Product = product;
         }
 
-        public override Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice)
+        private Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice)
         {
 
             int totalUnits = (int)quantity.Amount;
@@ -46,6 +46,18 @@ namespace SupermarketReceipt.Domain.Entities.Offers
                     string.Format("{0:0} for {1:N2}", GroupSize, Amount),
                     -discount)
                 : null;
+        }
+
+        public override Discount CalculateDiscount(IReadOnlyDictionary<Product, Quantity> productQuantities, ICatalog catalog)
+        {
+
+            if (productQuantities.TryGetValue(Product, out var prodQuantity))
+            {
+                return CalculateDiscountForProduct(Product, prodQuantity, catalog.GetUnitPrice(Product));
+            }
+
+            return null;
+
         }
     }
 }

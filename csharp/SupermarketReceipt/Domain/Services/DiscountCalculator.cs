@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace SupermarketReceipt.Domain.Services
 {
+
     public class DiscountCalculator : IDiscountCalculator
     {
         private readonly ICatalog _catalog;
@@ -23,9 +24,7 @@ namespace SupermarketReceipt.Domain.Services
             var discounts = new List<Discount>();
             foreach (var (product, offer) in offers)
             {
-                var quantity = productQuantities[product];
-                var unitPrice = _catalog.GetUnitPrice(product);
-                var discount = offer.CalculateDiscountForProduct(product, quantity, unitPrice);
+                var discount = offer.CalculateDiscount(productQuantities, _catalog);
 
                 if (discount != null)
                     discounts.Add(discount);

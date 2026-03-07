@@ -23,6 +23,6 @@ namespace SupermarketReceipt.Domain.Entities.Offers
             SpecialOfferType = specialOfferType;
         }
 
-        public abstract Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice);
+        public abstract Discount CalculateDiscount(IReadOnlyDictionary<Product, Quantity> productQuantities, ICatalog catalog);
     }
 }

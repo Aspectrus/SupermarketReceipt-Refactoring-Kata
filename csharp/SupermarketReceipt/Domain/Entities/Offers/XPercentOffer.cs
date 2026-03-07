@@ -21,9 +21,20 @@ namespace SupermarketReceipt.Domain.Entities.Offers
         }
         public decimal PercentAmount { get; }
 
-        public override Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice)
+        private Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice)
         {
             return new Discount(product, string.Format("{0:0.##}% off", PercentAmount), -quantity.Amount * unitPrice * PercentAmount / 100.0M);
+        }
+        public override Discount CalculateDiscount(IReadOnlyDictionary<Product, Quantity> productQuantities, ICatalog catalog)
+        {
+
+            if (productQuantities.TryGetValue(Product, out var prodQuantity))
+            {
+                return CalculateDiscountForProduct(Product, prodQuantity, catalog.GetUnitPrice(Product));
+            }
+
+            return null;
+
         }
     }
 }
