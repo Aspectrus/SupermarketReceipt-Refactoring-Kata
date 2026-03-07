@@ -11,11 +11,11 @@ namespace SupermarketReceipt.Infrastructure
     {
         private readonly Dictionary<Product, Offer> _offers = new();
 
-        public void Add(Offer offer, Product product)
+        public void Add(Offer offer)
         {
             if (offer == null)
                 throw new ArgumentNullException(nameof(offer));
-            _offers[product] = offer;
+            _offers[offer.Product] = offer;
         }
 
         public ReadOnlyDictionary<Product, Offer> GetAll()

@@ -15,8 +15,13 @@ namespace SupermarketReceipt.Domain.Entities.Offers
 
     public abstract class Offer
     {
-        public SpecialOfferType OfferType { get; internal set; }
-        public decimal Argument { get; internal set; }
+        public Product Product { get; internal set; }
+        public SpecialOfferType SpecialOfferType { get; internal set; }
+        protected Offer(Product product, SpecialOfferType specialOfferType)
+        {
+            Product = product ?? throw new ArgumentNullException(nameof(product));
+            SpecialOfferType = specialOfferType;
+        }
 
         public abstract Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice);
     }

@@ -17,6 +17,7 @@ namespace SupermarketReceipt.Test
         private OfferAdministrationService _offerService;
         private ICheckoutService _checkoutService;
         private ShoppingCart _theCart;
+        private OfferFactory _offerFactory;
         private Product _toothbrush;
         private Product _rice;
         private Product _apples;
@@ -33,6 +34,7 @@ namespace SupermarketReceipt.Test
             _offerService = new OfferAdministrationService(offerRepository);
             _checkoutService = new CheckoutService(_catalog, discountCalculator, _offerService);
             _theCart = new ShoppingCart();
+            _offerFactory = new OfferFactory();
 
             _toothbrush = new Product("toothbrush", ProductUnit.Each);
             _catalog.AddProduct(_toothbrush, 0.99m);
@@ -74,7 +76,8 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
-            _offerService.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            var offer = _offerFactory.CreateThreeForTwoOffer(_toothbrush);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -87,7 +90,8 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
-            _offerService.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            var offer = _offerFactory.CreateThreeForTwoOffer(_toothbrush);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -104,7 +108,8 @@ namespace SupermarketReceipt.Test
         public Task percent_discount()
         {
             _theCart.AddItem(_rice);
-            _offerService.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _rice, 10.0m);
+            var offer = _offerFactory.CreateTenPercentDiscountOffer(_rice);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -114,7 +119,8 @@ namespace SupermarketReceipt.Test
         {
             _theCart.AddItem(_cherryTomatoes);
             _theCart.AddItem(_cherryTomatoes);
-            _offerService.AddSpecialOffer(SpecialOfferType.TwoForAmount, _cherryTomatoes, 0.99m);
+            var offer = _offerFactory.CreateTwoForAmountOffer(_cherryTomatoes, 0.99M);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -123,7 +129,8 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount()
         {
             _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 5M));
-            _offerService.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
+            var offer = _offerFactory.CreateFiveForAmountOffer(_apples, 6.99M);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -132,7 +139,8 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withSix()
         {
             _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 6M));
-            _offerService.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
+            var offer = _offerFactory.CreateFiveForAmountOffer(_apples, 6.99M);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -141,7 +149,8 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withSixteen()
         {
             _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 16M));
-            _offerService.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
+            var offer = _offerFactory.CreateFiveForAmountOffer(_apples, 6.99M);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -150,7 +159,8 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withFour()
         {
             _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 4M));
-            _offerService.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99m);
+            var offer = _offerFactory.CreateFiveForAmountOffer(_apples, 6.99M);
+            _offerService.AddOffer(offer);
             Receipt receipt = _checkoutService.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }

@@ -6,7 +6,7 @@ namespace SupermarketReceipt.Domain.Interfaces
 {
     public interface IOfferRepository
     {
-        void Add(Offer offer, Product product);
+        void Add(Offer offer);
         ReadOnlyDictionary<Product, Offer> GetAll();
     }
 }

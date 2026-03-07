@@ -17,17 +17,7 @@ namespace SupermarketReceipt.Application
 
         public ReadOnlyDictionary<Product, Offer> GetAllOffers() => _offerRepository.GetAll();
 
-        public void AddSpecialOffer(SpecialOfferType offerType, Product product, decimal argument)
-        {
-            Offer offer = offerType switch
-            {
-                SpecialOfferType.ThreeForTwo => new ThreeForTwoOffer(),
-                SpecialOfferType.TwoForAmount => new TwoForAmountOffer(argument),
-                SpecialOfferType.FiveForAmount => new FiveForAmountOffer(argument),
-                SpecialOfferType.TenPercentDiscount => new TenPercentDiscountOffer(argument),
-                _ => throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null)
-            };
-            _offerRepository.Add(offer, product);
-        }
+        public void AddOffer(Offer offer) => _offerRepository.Add(offer);
+
     }
 }
