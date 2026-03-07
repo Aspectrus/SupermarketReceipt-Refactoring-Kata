@@ -2,6 +2,7 @@ using SupermarketReceipt.Application;
 using SupermarketReceipt.Domain.Entities;
 using SupermarketReceipt.Domain.Entities.Offers;
 using SupermarketReceipt.Domain.Interfaces;
+using SupermarketReceipt.Domain.Services;
 using SupermarketReceipt.Domain.ValueObjects;
 using SupermarketReceipt.Infrastructure;
 using System.Threading.Tasks;
@@ -22,8 +23,11 @@ namespace SupermarketReceipt.Test
 
         public SupermarketXUnitTest()
         {
+
             _catalog = new FakeCatalog();
-            _teller = new Teller(_catalog);
+            var discountCalculator = new DiscountCalculator(_catalog);
+
+            _teller = new Teller(_catalog, discountCalculator);
             _theCart = new ShoppingCart();
 
             _toothbrush = new Product("toothbrush", ProductUnit.Each);
