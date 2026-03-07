@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SupermarketReceipt.Infrastructure
 {
-    public class FakeCatalog : ISupermarketCatalog
+    public class FakeCatalog : ICatalog
     {
         private readonly IDictionary<string, decimal> _prices = new Dictionary<string, decimal>();
         private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();

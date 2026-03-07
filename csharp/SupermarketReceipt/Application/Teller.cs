@@ -1,22 +1,32 @@
 using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Entities.Offers;
 using SupermarketReceipt.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt.Application
 {
     public class Teller
     {
-        private readonly ISupermarketCatalog _catalog;
+        private readonly ICatalog _catalog;
         private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
 
-        public Teller(ISupermarketCatalog catalog)
+        public Teller(ICatalog catalog)
         {
             _catalog = catalog;
         }
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, decimal argument)
         {
-            _offers[product] = new Offer(offerType, product, argument);
+            Offer offer = offerType switch
+            {
+                SpecialOfferType.ThreeForTwo => new ThreeForTwoOffer(),
+                SpecialOfferType.TwoForAmount => new TwoForAmountOffer(argument),
+                SpecialOfferType.FiveForAmount => new FiveForAmountOffer(argument),
+                SpecialOfferType.TenPercentDiscount => new TenPercentDiscountOffer(argument),
+                _ => throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null)
+            };
+            _offers[product] = offer;
         }
 
         public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)

@@ -1,3 +1,4 @@
+using SupermarketReceipt.Domain.Entities.Offers;
 using SupermarketReceipt.Domain.Interfaces;
 using SupermarketReceipt.Domain.ValueObjects;
 using System;
@@ -42,7 +43,7 @@ namespace SupermarketReceipt.Domain.Entities
 
         }
 
-        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
+        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ICatalog catalog)
         {
             foreach (var p in _productQuantities.Keys)
             {

@@ -1,5 +1,6 @@
 using SupermarketReceipt.Application;
 using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Entities.Offers;
 using SupermarketReceipt.Domain.Interfaces;
 using SupermarketReceipt.Domain.ValueObjects;
 using SupermarketReceipt.Infrastructure;
@@ -11,7 +12,7 @@ namespace SupermarketReceipt.Test
 {
     public class SupermarketXUnitTest
     {
-        private ISupermarketCatalog _catalog;
+        private ICatalog _catalog;
         private Teller _teller;
         private ShoppingCart _theCart;
         private Product _toothbrush;
