@@ -1,13 +1,15 @@
+using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Interfaces;
 using System.Collections.Generic;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Application
 {
     public class Teller
     {
-        private readonly SupermarketCatalog _catalog;
+        private readonly ISupermarketCatalog _catalog;
         private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
 
-        public Teller(SupermarketCatalog catalog)
+        public Teller(ISupermarketCatalog catalog)
         {
             _catalog = catalog;
         }

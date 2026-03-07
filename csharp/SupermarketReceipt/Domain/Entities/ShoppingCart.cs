@@ -1,7 +1,9 @@
+using SupermarketReceipt.Domain.Interfaces;
+using SupermarketReceipt.Domain.ValueObjects;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Domain.Entities
 {
     public class ShoppingCart
     {
@@ -35,7 +37,7 @@ namespace SupermarketReceipt
             }
         }
 
-        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
+        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
         {
             foreach (var p in _productQuantities.Keys)
             {

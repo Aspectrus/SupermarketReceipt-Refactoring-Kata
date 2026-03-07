@@ -1,3 +1,7 @@
+using SupermarketReceipt.Application;
+using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Interfaces;
+using SupermarketReceipt.Infrastructure;
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
@@ -6,7 +10,7 @@ namespace SupermarketReceipt.Test
 {
     public class SupermarketXUnitTest
     {
-        private SupermarketCatalog _catalog;
+        private ISupermarketCatalog _catalog;
         private Teller _teller;
         private ShoppingCart _theCart;
         private Product _toothbrush;

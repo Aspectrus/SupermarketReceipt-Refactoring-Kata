@@ -1,3 +1,4 @@
+using SupermarketReceipt.Domain.Entities;
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;

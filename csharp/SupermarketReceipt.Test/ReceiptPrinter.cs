@@ -1,3 +1,5 @@
+using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.ValueObjects;
 using System.Globalization;
 using System.Text;
 

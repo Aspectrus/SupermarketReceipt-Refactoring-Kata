@@ -1,4 +1,4 @@
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Domain.Entities
 {
     public class Discount
     {

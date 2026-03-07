@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Domain.Entities
 {
     public class Product
     {
@@ -28,18 +28,6 @@ namespace SupermarketReceipt
             hashCode = hashCode * -1521134295 + Unit.GetHashCode();
             return hashCode;
         }
-    }
-
-    public class ProductQuantity
-    {
-        public ProductQuantity(Product product, decimal weight)
-        {
-            Product = product;
-            Quantity = weight;
-        }
-
-        public Product Product { get; }
-        public decimal Quantity { get; }
     }
 
     public enum ProductUnit

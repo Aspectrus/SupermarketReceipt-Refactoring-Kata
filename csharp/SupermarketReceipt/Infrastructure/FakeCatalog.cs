@@ -1,8 +1,10 @@
+using SupermarketReceipt.Domain.Entities;
+using SupermarketReceipt.Domain.Interfaces;
 using System.Collections.Generic;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Infrastructure
 {
-    public class FakeCatalog : SupermarketCatalog
+    public class FakeCatalog : ISupermarketCatalog
     {
         private readonly IDictionary<string, decimal> _prices = new Dictionary<string, decimal>();
         private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
