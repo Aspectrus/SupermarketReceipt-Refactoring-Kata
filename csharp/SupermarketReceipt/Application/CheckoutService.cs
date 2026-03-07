@@ -6,30 +6,20 @@ using System.Collections.Generic;
 
 namespace SupermarketReceipt.Application
 {
-    public class Teller
+    public class CheckoutService : ICheckoutService
     {
-        private readonly ICatalog _catalog; 
+        private readonly ICatalog _catalog;
         private readonly IDiscountCalculator _discountCalculator;
+        private readonly IOfferAdministrationService _offerAdministrationService;
 
-        private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
-
-        public Teller(ICatalog catalog, IDiscountCalculator discountCalculator)
+        public CheckoutService(
+             ICatalog catalog,
+             IDiscountCalculator discountCalculator,
+             IOfferAdministrationService offerAdministrationService)
         {
             _catalog = catalog;
             _discountCalculator = discountCalculator;
-        }
-
-        public void AddSpecialOffer(SpecialOfferType offerType, Product product, decimal argument)
-        {
-            Offer offer = offerType switch
-            {
-                SpecialOfferType.ThreeForTwo => new ThreeForTwoOffer(),
-                SpecialOfferType.TwoForAmount => new TwoForAmountOffer(argument),
-                SpecialOfferType.FiveForAmount => new FiveForAmountOffer(argument),
-                SpecialOfferType.TenPercentDiscount => new TenPercentDiscountOffer(argument),
-                _ => throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null)
-            };
-            _offers[product] = offer;
+            _offerAdministrationService = offerAdministrationService;
         }
 
         public Receipt ChecksOutArticlesFrom(ShoppingCart cart)
@@ -55,7 +45,8 @@ namespace SupermarketReceipt.Application
 
         private void ApplyDiscountsToReceipt(Receipt receipt, ShoppingCart cart)
         {
-            var discounts = _discountCalculator.GetDiscountsFromOffers(_offers, cart.GetProductQuantities());
+            var offers = _offerAdministrationService.GetAllOffers();
+            var discounts = _discountCalculator.GetDiscountsFromOffers(offers, cart.GetProductQuantities());
             discounts.ForEach(receipt.AddDiscount);
         }
     }

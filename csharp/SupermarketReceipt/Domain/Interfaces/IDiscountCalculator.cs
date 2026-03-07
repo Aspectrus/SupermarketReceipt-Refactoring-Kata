@@ -8,6 +8,6 @@ namespace SupermarketReceipt.Domain.Interfaces
 {
     public interface IDiscountCalculator
     {
-        List<Discount> GetDiscountsFromOffers(Dictionary<Product, Offer> offers, IReadOnlyDictionary<Product, Quantity> productQuantities);
+        List<Discount> GetDiscountsFromOffers(ReadOnlyDictionary<Product, Offer> offers, IReadOnlyDictionary<Product, Quantity> productQuantities);
     }
 }

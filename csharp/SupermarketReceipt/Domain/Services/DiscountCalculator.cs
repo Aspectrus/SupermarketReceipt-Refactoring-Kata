@@ -17,7 +17,7 @@ namespace SupermarketReceipt.Domain.Services
         }
 
 
-        public List<Discount> GetDiscountsFromOffers(Dictionary<Product, Offer> offers, IReadOnlyDictionary<Product, Quantity> productQuantities)
+        public List<Discount> GetDiscountsFromOffers(ReadOnlyDictionary<Product, Offer> offers, IReadOnlyDictionary<Product, Quantity> productQuantities)
         {
 
             var discounts = new List<Discount>();
