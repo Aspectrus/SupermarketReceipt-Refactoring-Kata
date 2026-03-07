@@ -44,7 +44,7 @@ namespace SupermarketReceipt.Domain.Entities.Offers
             return discount > 0
                ? new Discount(
                product,
-               -discount,
+               discount,
                SpecialOfferType,
                new decimal[] { ItemsReceived, ItemsPaid })
                : null;

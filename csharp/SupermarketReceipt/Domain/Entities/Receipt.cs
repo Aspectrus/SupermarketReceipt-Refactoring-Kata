@@ -16,7 +16,7 @@ namespace SupermarketReceipt.Domain.Entities
         {
             var total = 0.0M;
             foreach (var item in _items) total += item.TotalPrice;
-            foreach (var discount in _discounts) total += discount.DiscountAmount;
+            foreach (var discount in _discounts) total -= discount.DiscountAmount;
             return total;
         }
 

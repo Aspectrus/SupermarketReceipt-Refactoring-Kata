@@ -23,7 +23,7 @@ namespace SupermarketReceipt.Domain.Entities.Offers
 
         private Discount CalculateDiscountForProduct(Product product, Quantity quantity, decimal unitPrice)
         {
-            return new Discount(product, -quantity.Amount * unitPrice * PercentAmount / 100.0M, SpecialOfferType, new decimal[] { PercentAmount });
+            return new Discount(product, quantity.Amount * unitPrice * PercentAmount / 100.0M, SpecialOfferType, new decimal[] { PercentAmount });
         }
 
         public override Discount CalculateDiscount(IReadOnlyDictionary<Product, Quantity> productQuantities, ICatalog catalog)

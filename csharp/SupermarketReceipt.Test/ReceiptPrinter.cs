@@ -60,7 +60,7 @@ namespace SupermarketReceipt
         discount.Arguments,
         Culture)
                 + "(" + discount.Product?.Name + ")";
-            string value = PrintPrice(discount.DiscountAmount);
+            string value = PrintPrice(-discount.DiscountAmount);
 
             return FormatLineWithWhitespace(name, value);
         }
