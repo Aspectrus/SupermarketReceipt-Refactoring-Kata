@@ -6,7 +6,7 @@ namespace SupermarketReceipt
     public class ShoppingCart
     {
         private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
-        private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
+        private readonly Dictionary<Product, decimal> _productQuantities = new Dictionary<Product, decimal>();
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
 
@@ -17,11 +17,11 @@ namespace SupermarketReceipt
 
         public void AddItem(Product product)
         {
-            AddItemQuantity(product, 1.0);
+            AddItemQuantity(product, 1.0M);
         }
 
 
-        public void AddItemQuantity(Product product, double quantity)
+        public void AddItemQuantity(Product product, decimal quantity)
         {
             _items.Add(new ProductQuantity(product, quantity));
             if (_productQuantities.ContainsKey(product))
@@ -70,7 +70,7 @@ namespace SupermarketReceipt
                         discount = new Discount(p, "3 for 2", -discountAmount);
                     }
 
-                    if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(p, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
+                    if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(p, offer.Argument.ToString("0.##") + "% off", -quantity * unitPrice * offer.Argument / 100.0M);
                     if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
                         var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
@@ -83,7 +83,7 @@ namespace SupermarketReceipt
             }
         }
         
-        private string PrintPrice(double price)
+        private string PrintPrice(decimal price)
         {
             return price.ToString("N2", Culture);
         }

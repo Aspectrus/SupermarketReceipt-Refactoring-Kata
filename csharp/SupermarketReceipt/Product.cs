@@ -32,14 +32,14 @@ namespace SupermarketReceipt
 
     public class ProductQuantity
     {
-        public ProductQuantity(Product product, double weight)
+        public ProductQuantity(Product product, decimal weight)
         {
             Product = product;
             Quantity = weight;
         }
 
         public Product Product { get; }
-        public double Quantity { get; }
+        public decimal Quantity { get; }
     }
 
     public enum ProductUnit

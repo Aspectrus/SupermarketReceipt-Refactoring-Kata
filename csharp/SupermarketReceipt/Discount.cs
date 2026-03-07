@@ -2,7 +2,7 @@ namespace SupermarketReceipt
 {
     public class Discount
     {
-        public Discount(Product product, string description, double discountAmount)
+        public Discount(Product product, string description, decimal discountAmount)
         {
             Product = product;
             Description = description;
@@ -10,7 +10,7 @@ namespace SupermarketReceipt
         }
 
         public string Description { get; }
-        public double DiscountAmount { get; }
+        public decimal DiscountAmount { get; }
         public Product Product { get; }
     }
 }

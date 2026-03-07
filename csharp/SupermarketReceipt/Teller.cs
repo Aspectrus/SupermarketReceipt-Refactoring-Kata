@@ -12,7 +12,7 @@ namespace SupermarketReceipt
             _catalog = catalog;
         }
 
-        public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
+        public void AddSpecialOffer(SpecialOfferType offerType, Product product, decimal argument)
         {
             _offers[product] = new Offer(offerType, product, argument);
         }
