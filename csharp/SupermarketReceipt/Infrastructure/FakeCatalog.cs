@@ -1,23 +1,23 @@
 using SupermarketReceipt.Domain.Entities;
 using SupermarketReceipt.Domain.Interfaces;
+using SupermarketReceipt.Domain.ValueObjects;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt.Infrastructure
 {
     public class FakeCatalog : ICatalog
     {
-        private readonly IDictionary<string, decimal> _prices = new Dictionary<string, decimal>();
-        private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
+        private readonly IDictionary<Product, CatalogEntry> _catalogueEntries = new Dictionary<Product, CatalogEntry>();
 
         public void AddProduct(Product product, decimal price)
         {
-            _products.Add(product.Name, product);
-            _prices.Add(product.Name, price);
+            _catalogueEntries[product] = new CatalogEntry(product, price);
         }
 
-        public decimal GetUnitPrice(Product p)
+        public decimal GetUnitPrice(Product product)
         {
-            return _prices[p.Name];
+            return _catalogueEntries[product].Price;
         }
+
     }
 }
