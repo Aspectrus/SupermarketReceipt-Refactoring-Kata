@@ -60,7 +60,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task multiple_eoffers_for_one_product()
+        public Task multiple_offers_for_one_product()
         {
             _theCart.AddItemQuantity(_apples, Quantity.ForProduct(_apples, 5M));
             var offer1 = _offerFactory.CreateFiveForAmountOffer(_apples, 5M);

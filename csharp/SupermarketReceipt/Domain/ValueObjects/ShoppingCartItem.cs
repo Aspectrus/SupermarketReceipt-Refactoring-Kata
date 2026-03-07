@@ -12,6 +12,8 @@ namespace SupermarketReceipt.Domain.ValueObjects
         {
             Product = product ?? throw new ArgumentNullException(nameof(product));
             Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
+            if (quantity.Unit != product.Unit)
+                throw new ArgumentException("Quantity unit must match product unit.", nameof(quantity));
         }
     }
 }
